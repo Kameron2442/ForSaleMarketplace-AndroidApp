@@ -1,8 +1,10 @@
-package com.example.myapplication;
+package com.bourgeois.lister;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.bourgeois.lister.R;
 
 public class MainActivity extends AppCompatActivity {
 
