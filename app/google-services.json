@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "978311068891",
+    "firebase_url": "https://lister-fa5ac.firebaseio.com",
+    "project_id": "lister-fa5ac",
+    "storage_bucket": "lister-fa5ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978311068891:android:1e819019a3d27bec66a0fe",
+        "android_client_info": {
+          "package_name": "com.bourgeois.lister"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "978311068891-9kuve3o2uv0upuahcv0bmrhtkqi7mmgs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIMNfKpHx2iDQTV4jvVJScq8MLe-lZdU8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "978311068891-9kuve3o2uv0upuahcv0bmrhtkqi7mmgs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
