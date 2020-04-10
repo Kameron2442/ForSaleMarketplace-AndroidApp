@@ -47,6 +47,14 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity.class));
     }
 
+    public void createPost(View view) {
+        startActivity(new Intent(this, PostActivity.class));
+    }
+
+    public void recentListings(View view) {
+        startActivity(new Intent(this, RecentListingsActivity.class));
+    }
+
 
 
 }
