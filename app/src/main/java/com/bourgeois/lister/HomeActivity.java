@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +24,8 @@ public class HomeActivity extends AppCompatActivity {
     private TextView mNameLabel;
     private final FirebaseFirestore mDb = FirebaseFirestore.getInstance();
     private ListingRecyclerAdapter mAdapter;
+    private final SimpleDateFormat format = new SimpleDateFormat("MM-dd-yy", Locale.US);
+
 
 
 
@@ -51,8 +55,12 @@ public class HomeActivity extends AppCompatActivity {
             public void onItemClick(int position) {
                 Listing item = mAdapter.getSnapshots().getSnapshot(position).toObject(Listing.class);
                 String id = mAdapter.getSnapshots().getSnapshot(position).getId();
-                Intent listIntent = new Intent(HomeActivity.this, YourListingsActivity.class);
-                listIntent.putExtra(ListingViewActivity.DOC_ID, id);
+                Intent listIntent = new Intent(HomeActivity.this, ListingViewActivity.class);
+                listIntent.putExtra(ListingViewActivity.DOC_title, item.getTitle());
+                listIntent.putExtra(ListingViewActivity.DOC_price, String.valueOf(item.getPrice()));
+                listIntent.putExtra(ListingViewActivity.DOC_desc, item.getDesc());
+                listIntent.putExtra(ListingViewActivity.DOC_posted, String.format(getResources().getString(R.string.created_on), format.format(item.getPosted())));
+                listIntent.putExtra(ListingViewActivity.DOC_uid, item.getUID());
                 startActivity(listIntent);
             }
         });

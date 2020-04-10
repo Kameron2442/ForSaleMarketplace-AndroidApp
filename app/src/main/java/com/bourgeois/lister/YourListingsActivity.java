@@ -1,5 +1,6 @@
 package com.bourgeois.lister;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,11 +13,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class YourListingsActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private final FirebaseFirestore mDb = FirebaseFirestore.getInstance();
     private ListingRecyclerAdapter mAdapter;
+    private final SimpleDateFormat format = new SimpleDateFormat("MM-dd-yy", Locale.US);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +42,15 @@ public class YourListingsActivity extends AppCompatActivity {
         mAdapter = new ListingRecyclerAdapter(options, new ListingRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-//                Listing item = mAdapter.getSnapshots().getSnapshot(position).toObject(Listing.class);
-//                String id = mAdapter.getSnapshots().getSnapshot(position).getId();
-//                mDb.collection("listings").document(id).delete();
-//
-//                Toast.makeText(getApplicationContext(),"Deleting " + item.getTitle(),Toast.LENGTH_SHORT).show();
+                Listing item = mAdapter.getSnapshots().getSnapshot(position).toObject(Listing.class);
+                String id = mAdapter.getSnapshots().getSnapshot(position).getId();
+                Intent listIntent = new Intent(YourListingsActivity.this, ListingViewActivity.class);
+                listIntent.putExtra(ListingViewActivity.DOC_title, item.getTitle());
+                listIntent.putExtra(ListingViewActivity.DOC_price, String.valueOf(item.getPrice()));
+                listIntent.putExtra(ListingViewActivity.DOC_desc, item.getDesc());
+                listIntent.putExtra(ListingViewActivity.DOC_posted, String.format(getResources().getString(R.string.created_on), format.format(item.getPosted())));
+                listIntent.putExtra(ListingViewActivity.DOC_uid, item.getUID());
+                startActivity(listIntent);
             }
         });
         recyclerView.setAdapter(mAdapter);
