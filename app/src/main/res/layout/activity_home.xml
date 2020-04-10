@@ -9,14 +9,17 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_marginBottom="32dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include layout ="@layout/toolbar_main"
-                android:id="@+id/toolbar"/>
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar_main" />
 
 
             <Button
@@ -63,29 +66,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/home_your" />
 
 
-            <TextView
-                android:id="@+id/hello"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="TextView"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/logout"
+                android:layout_marginStart="32dp"
+
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:onClick="signOut"
+                android:text="@string/logout"
+                android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/home_post" />
-
-            <Button
-                android:id="@+id/logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/logout"
-                app:layout_constraintEnd_toEndOf="@+id/hello"
-                app:layout_constraintStart_toStartOf="@+id/hello"
-                app:layout_constraintTop_toBottomOf="@+id/hello"
-                android:onClick="signOut"
-                android:textSize="16dp"/>
 
             <TextView
                 android:id="@+id/textView"
@@ -103,15 +97,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginBottom="32dp"
                 android:scrollbars="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

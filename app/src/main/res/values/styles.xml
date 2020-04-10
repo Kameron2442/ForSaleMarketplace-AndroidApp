@@ -10,6 +10,11 @@
 
     <style name="ToolbarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:colorAccent">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+
+
+
     </style>
 
 </resources>

@@ -16,4 +16,6 @@
     <string name="description">Description</string>
     <string name="post">Post</string>
     <string name="created_on">Created on %1$s</string>
+    <string name="poster_uid">Poster ID: %1$s</string>
+    <string name="price_dollar">$%1$s</string>
 </resources>
