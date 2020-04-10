@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecentListingsActivity">
+    tools:context=".YourListingsActivity">
 
 
     <androidx.core.widget.NestedScrollView
@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="@string/recent_listings"
+                android:text="@string/your_listings"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar"

@@ -3,6 +3,7 @@ package com.bourgeois.lister;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -89,6 +90,7 @@ public class PostActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
                     Toast.makeText(getApplicationContext(), "Your post is up!", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(PostActivity.this, YourListingsActivity.class));
                 }
             })
             .addOnFailureListener(new OnFailureListener() {
@@ -102,4 +104,6 @@ public class PostActivity extends AppCompatActivity {
 
 
     }
+
+
 }
