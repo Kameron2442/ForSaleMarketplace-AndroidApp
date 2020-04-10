@@ -7,4 +7,13 @@
     <string name="login">Login</string>
     <string name="register">Create New Account</string>
     <string name="firestore_button">Launch Firestore Activity</string>
+    <string name="recent_listings">Recent Listings</string>
+    <string name="create_post">Create Post</string>
+    <string name="search">Search</string>
+    <string name="your_listings">Your Listings</string>
+    <string name="title">Title</string>
+    <string name="price">Price</string>
+    <string name="description">Description</string>
+    <string name="post">Post</string>
+    <string name="created_on">Created on %1$s</string>
 </resources>

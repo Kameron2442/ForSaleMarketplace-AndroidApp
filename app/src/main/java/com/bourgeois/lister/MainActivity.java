@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         if (currentUser != null) {
             loginViews.setVisibility(View.GONE);
             startActivity(new Intent(this, HomeActivity.class));
+            finish();
         } else {
 
         }
