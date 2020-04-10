@@ -42,7 +42,7 @@ public class PostActivity extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
     }
 
-    private boolean validateForm(String title, String desc, Integer price) {
+    private boolean validateForm(String title, String desc, String price) {
         boolean valid = true;
 
         if (TextUtils.isEmpty(title)) {
@@ -59,8 +59,11 @@ public class PostActivity extends AppCompatActivity {
             item_desc.setError(null);
         }
 
-        if (price < 0) {
-            item_price.setError("Can't be negative");
+        if (TextUtils.isEmpty(price)){
+            item_price.setError("Required.");
+            valid = false;
+        }else if (Integer.parseInt(price) < 0) {
+            item_price.setError("Can't be negative.");
             valid = false;
         } else {
             item_price.setError(null);
@@ -73,25 +76,25 @@ public class PostActivity extends AppCompatActivity {
 
         String title = item_title.getText().toString();
         String desc = item_desc.getText().toString();
-        Integer price = Integer.parseInt(item_price.getText().toString());
+        String price = item_price.getText().toString();
 
         if (!validateForm(title, desc, price)) {
             return;
         }
-
-        Listing newListing = new Listing(title, price, desc, currentUser.getUid(),new Date());
+        Integer priceInt = Integer.parseInt(price);
+        Listing newListing = new Listing(title, priceInt, desc, currentUser.getUid(),new Date());
 
         mDb.collection("listings").add(newListing)
             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
-                    Log.d(TAG, "User added with ID: " + documentReference.getId());
+                    Toast.makeText(getApplicationContext(), "Your post is up!", Toast.LENGTH_LONG).show();
                 }
             })
             .addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Log.w(TAG, "Error adding user", e);
+                    Toast.makeText(getApplicationContext(), "Something broke! Try again", Toast.LENGTH_LONG).show();
                 }
             });
 
