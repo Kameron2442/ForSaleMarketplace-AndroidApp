@@ -32,7 +32,6 @@ public class ListingRecyclerAdapter extends FirestoreRecyclerAdapter<Listing, Li
 
     class ListingViewHolder extends RecyclerView.ViewHolder {
         final CardView view;
-        //final TextView userId;
         final TextView title;
         final TextView price;
         final TextView desc;
@@ -41,7 +40,6 @@ public class ListingRecyclerAdapter extends FirestoreRecyclerAdapter<Listing, Li
         ListingViewHolder(CardView v) {
             super(v);
             view = v;
-            //userId = v.findViewById(R.id.item_user_id);
             title = v.findViewById(R.id.item_title);
             price = v.findViewById(R.id.item_price);
             desc = v.findViewById(R.id.item_desc);

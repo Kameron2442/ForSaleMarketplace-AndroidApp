@@ -8,17 +8,19 @@ class Listing {
     private String desc;
     private String uid;
     private Date posted;
+    private String email;
 
     // No-argument constructor is required to support conversion of Firestore document to POJO
     public Listing() {}
 
     // All-argument constructor is required to support conversion of Firestore document to POJO
-    public Listing(String title, Integer price, String desc, String uid, Date posted) {
+    public Listing(String title, Integer price, String desc, String uid, Date posted, String email) {
         this.title = title;
         this.price = price;
         this.desc = desc;
         this.uid = uid;
         this.posted = posted;
+        this.email = email;
     }
 
     public String getTitle() {
@@ -39,5 +41,9 @@ class Listing {
 
     public Date getPosted(){
         return posted;
+    }
+
+    public String getEmail(){
+        return email;
     }
 }

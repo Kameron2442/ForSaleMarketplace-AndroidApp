@@ -27,6 +27,7 @@ public class ListingViewActivity extends AppCompatActivity {
     public static final String DOC_desc = "desc";
     public static final String DOC_posted = "posted";
     public static final String DOC_uid = "uid";
+    public static final String DOC_email = "email";
     public static final String DOC_id = "did";
 
     private ConstraintLayout mine;
@@ -56,13 +57,14 @@ public class ListingViewActivity extends AppCompatActivity {
         String descText = intent.getStringExtra(DOC_desc);
         String postedText = intent.getStringExtra(DOC_posted);
         String uidText = intent.getStringExtra(DOC_uid);
+        String emailText = intent.getStringExtra(DOC_email);
         listingId = intent.getStringExtra(DOC_id);
 
         TextView tb_title = (TextView)findViewById(R.id.listing_title);
         TextView tb_price = (TextView)findViewById(R.id.listing_price);
         TextView tb_desc = (TextView)findViewById(R.id.listing_desc);
         TextView tb_posted = (TextView)findViewById(R.id.listing_posted);
-        TextView tb_uid = (TextView)findViewById(R.id.listing_user);
+        TextView tb_email = (TextView)findViewById(R.id.listing_user);
         mine = findViewById(R.id.mine_group);
         updatePostButton = findViewById(R.id.update_button);
         deletePostButton = findViewById(R.id.delete_button);
@@ -71,17 +73,15 @@ public class ListingViewActivity extends AppCompatActivity {
         tb_price.setText(priceText);
         tb_desc.setText(descText);
         tb_posted.setText(postedText);
-        tb_uid.setText(uidText);
+        tb_email.setText("Contact: " + emailText);
 
         mine.setVisibility(View.GONE);
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
+        Log.i("myApp", emailText);
 
         if(uidText.substring(11).equals(currentUser.getUid())){
             mine.setVisibility(View.VISIBLE);
-            Log.i("myApp", "worrks");
-
         }
 
 

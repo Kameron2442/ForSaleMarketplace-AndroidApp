@@ -29,6 +29,7 @@ public class PostActivity extends AppCompatActivity {
     private EditText item_title;
     private EditText item_desc;
     private EditText item_price;
+    private EditText item_email;
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
 
@@ -45,6 +46,7 @@ public class PostActivity extends AppCompatActivity {
         item_title = findViewById(R.id.create_title_i);
         item_desc = findViewById(R.id.create_desc_i);
         item_price = findViewById(R.id.create_price_i);
+        item_email = findViewById(R.id.create_email_i);
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -85,12 +87,14 @@ public class PostActivity extends AppCompatActivity {
         String title = item_title.getText().toString();
         String desc = item_desc.getText().toString();
         String price = item_price.getText().toString();
+        String email = item_email.getText().toString();
+
 
         if (!validateForm(title, desc, price)) {
             return;
         }
         Integer priceInt = Integer.parseInt(price);
-        Listing newListing = new Listing(title, priceInt, desc, currentUser.getUid(),new Date());
+        Listing newListing = new Listing(title, priceInt, desc, currentUser.getUid(),new Date(), email);
 
         mDb.collection("listings").add(newListing)
             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
