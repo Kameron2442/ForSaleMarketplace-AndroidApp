@@ -57,6 +57,7 @@ public class YourListingsActivity extends AppCompatActivity {
                 listIntent.putExtra(ListingViewActivity.DOC_desc, item.getDesc());
                 listIntent.putExtra(ListingViewActivity.DOC_posted, String.format(getResources().getString(R.string.created_on), format.format(item.getPosted())));
                 listIntent.putExtra(ListingViewActivity.DOC_uid, String.format(getResources().getString(R.string.poster_uid), item.getUID()));
+                listIntent.putExtra(ListingViewActivity.DOC_id, id);
                 startActivity(listIntent);
             }
         });

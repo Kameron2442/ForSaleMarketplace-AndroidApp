@@ -98,6 +98,7 @@ public class PostActivity extends AppCompatActivity {
                 public void onSuccess(DocumentReference documentReference) {
                     Toast.makeText(getApplicationContext(), "Your post is up!", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(PostActivity.this, YourListingsActivity.class));
+                    finish();
                 }
             })
             .addOnFailureListener(new OnFailureListener() {

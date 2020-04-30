@@ -18,4 +18,6 @@
     <string name="created_on">Created on %1$s</string>
     <string name="poster_uid">Poster ID: %1$s</string>
     <string name="price_dollar">$%1$s</string>
+    <string name="delete_post">Delete Post</string>
+    <string name="update_post">Update Post</string>
 </resources>
