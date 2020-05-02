@@ -127,7 +127,8 @@ public class ListingViewActivity extends AppCompatActivity {
         listIntent.putExtra(PostActivity.POST_PRICE, priceText);
         listIntent.putExtra(PostActivity.POST_EMAIL, emailText);
         listIntent.putExtra(PostActivity.POST_DESC, descText);
-
         startActivity(listIntent);
+        finish();
+
     }
 }

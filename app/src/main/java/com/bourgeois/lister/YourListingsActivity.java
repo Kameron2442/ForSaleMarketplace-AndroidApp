@@ -71,4 +71,10 @@ public class YourListingsActivity extends AppCompatActivity {
         super.onStart();
         mAdapter.startListening();
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(YourListingsActivity.this, HomeActivity.class));
+        finish();
+    }
 }

@@ -151,13 +151,15 @@ public class PostActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Log.d(TAG, "DocumentSnapshot successfully updated!");
+                            Toast.makeText(getApplicationContext(), "Your update was applied!", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(PostActivity.this, YourListingsActivity.class));
+                            finish();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error updating document", e);
+                            Toast.makeText(getApplicationContext(), "Something broke! Try again", Toast.LENGTH_LONG).show();
                         }
                     });
         }
