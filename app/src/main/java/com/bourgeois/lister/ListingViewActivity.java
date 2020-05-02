@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -85,9 +87,26 @@ public class ListingViewActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         Log.i("myApp", emailText);
 
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(Intent.ACTION_SENDTO);
+                String uriText = "mailto:" + Uri.encode(emailText) + "?subject=" + Uri.encode(titleText);
+                Uri uri = Uri.parse(uriText);
+                myIntent.setData(uri);
+                if (myIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(myIntent);
+                }
+            }
+        });
+
         if(uidText.substring(11).equals(currentUser.getUid())){
             mine.setVisibility(View.VISIBLE);
+            fab.setVisibility(View.GONE);
         }
+
+
 
 
     }
