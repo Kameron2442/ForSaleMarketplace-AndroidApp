@@ -30,11 +30,10 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:text="@string/search"
-                android:visibility="gone"
+                android:onClick="searchListings"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar"
-                tools:visibility="gone" />
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 
             <Button

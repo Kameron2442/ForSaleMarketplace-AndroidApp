@@ -86,6 +86,10 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(new Intent(this, YourListingsActivity.class));
     }
 
+    public void searchListings(View view) {
+        startActivity(new Intent(this, SearchActivity.class));
+    }
+
     public void onBackPressed() {
 
     }
