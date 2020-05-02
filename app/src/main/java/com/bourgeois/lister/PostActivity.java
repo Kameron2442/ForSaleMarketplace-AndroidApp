@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,6 +26,13 @@ import java.util.Date;
 public class PostActivity extends AppCompatActivity {
 
     private static final String TAG = "PostActivity";
+
+    public static final String POST_ID = "pID";
+    public static final String POST_TITLE = "title";
+    public static final String POST_PRICE = "price";
+    public static final String POST_EMAIL= "email";
+    public static final String POST_DESC = "desc";
+
     private final FirebaseFirestore mDb = FirebaseFirestore.getInstance();
     private EditText item_title;
     private EditText item_desc;
@@ -32,6 +40,8 @@ public class PostActivity extends AppCompatActivity {
     private EditText item_email;
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
+    Boolean newPost = true;
+    String postID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +57,28 @@ public class PostActivity extends AppCompatActivity {
         item_desc = findViewById(R.id.create_desc_i);
         item_price = findViewById(R.id.create_price_i);
         item_email = findViewById(R.id.create_email_i);
+        Button postButton = findViewById(R.id.post_button);
+
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+
+        Intent intent = getIntent ();
+        postID = intent.getStringExtra(POST_ID);
+        String postTitle = intent.getStringExtra(POST_TITLE);
+        String postPrice = intent.getStringExtra(POST_PRICE);
+        String postEmail = intent.getStringExtra(POST_EMAIL);
+        String postDesc = intent.getStringExtra(POST_DESC);
+        if(postID != null){
+            newPost = false;
+            item_title.setText(postTitle);
+            item_desc.setText(postDesc);
+            item_price.setText(postPrice);
+            item_email.setText(postEmail);
+            postButton.setText("Update");
+
+        }
+
     }
 
     private boolean validateForm(String title, String desc, String price) {
@@ -96,21 +125,42 @@ public class PostActivity extends AppCompatActivity {
         Integer priceInt = Integer.parseInt(price);
         Listing newListing = new Listing(title, priceInt, desc, currentUser.getUid(),new Date(), email);
 
-        mDb.collection("listings").add(newListing)
-            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                @Override
-                public void onSuccess(DocumentReference documentReference) {
-                    Toast.makeText(getApplicationContext(), "Your post is up!", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(PostActivity.this, YourListingsActivity.class));
-                    finish();
-                }
-            })
-            .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getApplicationContext(), "Something broke! Try again", Toast.LENGTH_LONG).show();
-                }
-            });
+        if(newPost == true) {
+            mDb.collection("listings").add(newListing)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Toast.makeText(getApplicationContext(), "Your post is up!", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(PostActivity.this, YourListingsActivity.class));
+                            finish();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(), "Something broke! Try again", Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }else{
+            mDb.collection("listings").document(postID).update(
+                    "title", title,
+                    "price", priceInt,
+                    "email", email,
+                    "desc", desc
+            )
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "DocumentSnapshot successfully updated!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error updating document", e);
+                        }
+                    });
+        }
 
 
 

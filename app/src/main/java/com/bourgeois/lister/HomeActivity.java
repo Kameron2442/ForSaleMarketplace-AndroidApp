@@ -22,7 +22,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private final FirebaseFirestore mDb = FirebaseFirestore.getInstance();
-    private ListingRecyclerAdapter mAdapter;
+    //private ListingRecyclerAdapter mAdapter;
     private final SimpleDateFormat format = new SimpleDateFormat("MM-dd-yy", Locale.US);
 
 
@@ -40,37 +40,37 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
-
-        Query query = mDb.collection("listings").orderBy("posted", Query.Direction.DESCENDING);
-        FirestoreRecyclerOptions<Listing> options = new FirestoreRecyclerOptions.Builder<Listing>()
-                .setQuery(query, Listing.class).build();
-
-        mAdapter = new ListingRecyclerAdapter(options, new ListingRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Listing item = mAdapter.getSnapshots().getSnapshot(position).toObject(Listing.class);
-                String id = mAdapter.getSnapshots().getSnapshot(position).getId();
-                Intent listIntent = new Intent(HomeActivity.this, ListingViewActivity.class);
-                listIntent.putExtra(ListingViewActivity.DOC_title, item.getTitle());
-                listIntent.putExtra(ListingViewActivity.DOC_price, String.format(getResources().getString(R.string.price_dollar), String.valueOf(item.getPrice())));
-                listIntent.putExtra(ListingViewActivity.DOC_desc, item.getDesc());
-                listIntent.putExtra(ListingViewActivity.DOC_posted, String.format(getResources().getString(R.string.created_on), format.format(item.getPosted())));
-                listIntent.putExtra(ListingViewActivity.DOC_uid, String.format(getResources().getString(R.string.poster_uid), item.getUID()));
-                listIntent.putExtra(ListingViewActivity.DOC_email, item.getEmail());
-                listIntent.putExtra(ListingViewActivity.DOC_id, id);
-                startActivity(listIntent);
-            }
-        });
-        recyclerView.setAdapter(mAdapter);
+//        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+//        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+//
+//        Query query = mDb.collection("listings").orderBy("posted", Query.Direction.DESCENDING);
+//        FirestoreRecyclerOptions<Listing> options = new FirestoreRecyclerOptions.Builder<Listing>()
+//                .setQuery(query, Listing.class).build();
+//
+//        mAdapter = new ListingRecyclerAdapter(options, new ListingRecyclerAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position) {
+//                Listing item = mAdapter.getSnapshots().getSnapshot(position).toObject(Listing.class);
+//                String id = mAdapter.getSnapshots().getSnapshot(position).getId();
+//                Intent listIntent = new Intent(HomeActivity.this, ListingViewActivity.class);
+//                listIntent.putExtra(ListingViewActivity.DOC_title, item.getTitle());
+//                listIntent.putExtra(ListingViewActivity.DOC_price, String.valueOf(item.getPrice()));
+//                listIntent.putExtra(ListingViewActivity.DOC_desc, item.getDesc());
+//                listIntent.putExtra(ListingViewActivity.DOC_posted, String.format(getResources().getString(R.string.created_on), format.format(item.getPosted())));
+//                listIntent.putExtra(ListingViewActivity.DOC_uid, String.format(getResources().getString(R.string.poster_uid), item.getUID()));
+//                listIntent.putExtra(ListingViewActivity.DOC_email, item.getEmail());
+//                listIntent.putExtra(ListingViewActivity.DOC_id, id);
+//                startActivity(listIntent);
+//            }
+//        });
+//        recyclerView.setAdapter(mAdapter);
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        mAdapter.startListening();
+        //mAdapter.startListening();
     }
 
     public void signOut(View view) {

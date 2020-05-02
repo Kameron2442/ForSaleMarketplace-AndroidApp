@@ -53,7 +53,7 @@ public class YourListingsActivity extends AppCompatActivity {
                 String id = mAdapter.getSnapshots().getSnapshot(position).getId();
                 Intent listIntent = new Intent(YourListingsActivity.this, ListingViewActivity.class);
                 listIntent.putExtra(ListingViewActivity.DOC_title, item.getTitle());
-                listIntent.putExtra(ListingViewActivity.DOC_price, String.format(getResources().getString(R.string.price_dollar), String.valueOf(item.getPrice())));
+                listIntent.putExtra(ListingViewActivity.DOC_price, String.valueOf(item.getPrice()));
                 listIntent.putExtra(ListingViewActivity.DOC_desc, item.getDesc());
                 listIntent.putExtra(ListingViewActivity.DOC_posted, String.format(getResources().getString(R.string.created_on), format.format(item.getPosted())));
                 listIntent.putExtra(ListingViewActivity.DOC_uid, String.format(getResources().getString(R.string.poster_uid), item.getUID()));

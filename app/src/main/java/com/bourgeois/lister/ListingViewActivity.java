@@ -38,6 +38,10 @@ public class ListingViewActivity extends AppCompatActivity {
     private int delete_post_int = 0;
     private String listingId;
 
+    private String titleText;
+    private String priceText;
+    private String descText;
+    private String emailText;
 
 
 
@@ -52,13 +56,14 @@ public class ListingViewActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent ();
-        String titleText = intent.getStringExtra(DOC_title);
-        String priceText = intent.getStringExtra(DOC_price);
-        String descText = intent.getStringExtra(DOC_desc);
+        titleText = intent.getStringExtra(DOC_title);
+        priceText = intent.getStringExtra(DOC_price);
+        descText = intent.getStringExtra(DOC_desc);
+        emailText = intent.getStringExtra(DOC_email);
+        listingId = intent.getStringExtra(DOC_id);
         String postedText = intent.getStringExtra(DOC_posted);
         String uidText = intent.getStringExtra(DOC_uid);
-        String emailText = intent.getStringExtra(DOC_email);
-        listingId = intent.getStringExtra(DOC_id);
+
 
         TextView tb_title = (TextView)findViewById(R.id.listing_title);
         TextView tb_price = (TextView)findViewById(R.id.listing_price);
@@ -70,7 +75,7 @@ public class ListingViewActivity extends AppCompatActivity {
         deletePostButton = findViewById(R.id.delete_button);
 
         tb_title.setText(titleText);
-        tb_price.setText(priceText);
+        tb_price.setText("$" + priceText);
         tb_desc.setText(descText);
         tb_posted.setText(postedText);
         tb_email.setText("Contact: " + emailText);
@@ -113,5 +118,16 @@ public class ListingViewActivity extends AppCompatActivity {
         delete_post_int += 1;
         deletePostButton.setText("Are you sure you want to delete?");
 
+    }
+
+    public void updatePost(View view){
+        Intent listIntent = new Intent(ListingViewActivity.this, PostActivity.class);
+        listIntent.putExtra(PostActivity.POST_ID, listingId);
+        listIntent.putExtra(PostActivity.POST_TITLE, titleText);
+        listIntent.putExtra(PostActivity.POST_PRICE, priceText);
+        listIntent.putExtra(PostActivity.POST_EMAIL, emailText);
+        listIntent.putExtra(PostActivity.POST_DESC, descText);
+
+        startActivity(listIntent);
     }
 }
