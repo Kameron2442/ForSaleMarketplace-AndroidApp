@@ -2,16 +2,24 @@ package com.bourgeois.lister;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -21,6 +29,7 @@ public class YourListingsActivity extends AppCompatActivity {
     private final FirebaseFirestore mDb = FirebaseFirestore.getInstance();
     private ListingRecyclerAdapter mAdapter;
     private final SimpleDateFormat format = new SimpleDateFormat("MM-dd-yy", Locale.US);
+    private TextView noresults;
 
 
     @Override
@@ -59,6 +68,22 @@ public class YourListingsActivity extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(mAdapter);
+
+        //Checks if the user has any listings
+        noresults = findViewById(R.id.no_results);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                if(task.getResult().size() == 0){
+                    noresults.setVisibility(View.VISIBLE);
+                }else{
+                    noresults.setVisibility(View.GONE);
+                }
+
+            }
+        });
+
     }
 
     @Override

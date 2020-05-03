@@ -24,6 +24,8 @@
     <string name="min_price">Min price</string>
     <string name="max_price">Max price</string>
     <string name="no_results">No results</string>
+    <string name="none">None</string>
+
 
 
 </resources>
