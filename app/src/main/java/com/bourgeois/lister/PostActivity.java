@@ -59,7 +59,6 @@ public class PostActivity extends AppCompatActivity {
         item_email = findViewById(R.id.create_email_i);
         Button postButton = findViewById(R.id.post_button);
 
-
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
@@ -76,9 +75,7 @@ public class PostActivity extends AppCompatActivity {
             item_price.setText(postPrice);
             item_email.setText(postEmail);
             postButton.setText("Update");
-
         }
-
     }
 
     private boolean validateForm(String title, String desc, String price) {
@@ -111,6 +108,8 @@ public class PostActivity extends AppCompatActivity {
         return valid;
     }
 
+    //This function is used for both adding and updating listings
+    //The var newPost is used to determine whether to make a new post or not based on intent data
     public void postItem(View view) {
 
         String title = item_title.getText().toString();
@@ -118,10 +117,10 @@ public class PostActivity extends AppCompatActivity {
         String price = item_price.getText().toString();
         String email = item_email.getText().toString();
 
-
         if (!validateForm(title, desc, price)) {
             return;
         }
+
         Integer priceInt = Integer.parseInt(price);
         Listing newListing = new Listing(title, priceInt, desc, currentUser.getUid(),new Date(), email);
 
@@ -163,11 +162,5 @@ public class PostActivity extends AppCompatActivity {
                         }
                     });
         }
-
-
-
-
     }
-
-
 }

@@ -1,18 +1,14 @@
 package com.bourgeois.lister;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -68,8 +64,7 @@ public class ListingRecyclerAdapter extends FirestoreRecyclerAdapter<Listing, Li
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ListingViewHolder onCreateViewHolder(ViewGroup parent,
-                                               int viewType) {
+    public ListingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         CardView v = (CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.listing_item, parent, false);

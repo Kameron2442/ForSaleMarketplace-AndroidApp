@@ -5,7 +5,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,14 +30,13 @@ public class ListingViewActivity extends AppCompatActivity {
     public static final String DOC_email = "email";
     public static final String DOC_id = "did";
 
-    private ConstraintLayout mine;
+    private ConstraintLayout mine; //holds buttons that should be displayed if the current user owns the post
     private Button deletePostButton;
     private Button updatePostButton;
     private FirebaseAuth mAuth;
     private final FirebaseFirestore mDb = FirebaseFirestore.getInstance();
     private int delete_post_int = 0;
     private String listingId;
-
     private String titleText;
     private String priceText;
     private String descText;
@@ -65,7 +62,6 @@ public class ListingViewActivity extends AppCompatActivity {
         listingId = intent.getStringExtra(DOC_id);
         String postedText = intent.getStringExtra(DOC_posted);
         String uidText = intent.getStringExtra(DOC_uid);
-
 
         TextView tb_title = (TextView)findViewById(R.id.listing_title);
         TextView tb_price = (TextView)findViewById(R.id.listing_price);
@@ -105,14 +101,11 @@ public class ListingViewActivity extends AppCompatActivity {
             mine.setVisibility(View.VISIBLE);
             fab.setVisibility(View.GONE);
         }
-
-
-
-
     }
 
     public void deletePost(View view){
         if(delete_post_int == 1){
+            delete_post_int += 1;
             deletePostButton.setText("Deleting...");
             mDb.collection("listings").document(listingId).delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -120,7 +113,6 @@ public class ListingViewActivity extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getApplicationContext(), "Your post was deleted!", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(ListingViewActivity.this, YourListingsActivity.class));
-                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -128,15 +120,11 @@ public class ListingViewActivity extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(getApplicationContext(), "Something broke, try again", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(ListingViewActivity.this, YourListingsActivity.class));
-                        finish();
                     }
                 });
-            delete_post_int += 1;
-            return;
         }
         delete_post_int += 1;
         deletePostButton.setText("Are you sure you want to delete?");
-
     }
 
     public void updatePost(View view){
@@ -147,7 +135,5 @@ public class ListingViewActivity extends AppCompatActivity {
         listIntent.putExtra(PostActivity.POST_EMAIL, emailText);
         listIntent.putExtra(PostActivity.POST_DESC, descText);
         startActivity(listIntent);
-        finish();
-
     }
 }

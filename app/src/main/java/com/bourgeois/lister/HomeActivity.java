@@ -11,7 +11,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -24,9 +23,6 @@ public class HomeActivity extends AppCompatActivity {
     private final FirebaseFirestore mDb = FirebaseFirestore.getInstance();
     private ListingRecyclerAdapter mAdapter;
     private final SimpleDateFormat format = new SimpleDateFormat("MM-dd-yy", Locale.US);
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +40,7 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
 
         Query query = mDb.collection("listings").orderBy("posted", Query.Direction.DESCENDING);
-        FirestoreRecyclerOptions<Listing> options = new FirestoreRecyclerOptions.Builder<Listing>()
-                .setQuery(query, Listing.class).build();
+        FirestoreRecyclerOptions<Listing> options = new FirestoreRecyclerOptions.Builder<Listing>().setQuery(query, Listing.class).build();
 
         mAdapter = new ListingRecyclerAdapter(options, new ListingRecyclerAdapter.OnItemClickListener() {
             @Override
@@ -91,7 +86,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-
+        //keeps the user from going through their activity history
     }
 
 

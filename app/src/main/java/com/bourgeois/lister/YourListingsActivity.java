@@ -2,19 +2,16 @@ package com.bourgeois.lister;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -41,7 +38,6 @@ public class YourListingsActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
 
-
         Query query = mDb.collection("listings").whereEqualTo("uid", currentUser.getUid()).orderBy("posted", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Listing> options = new FirestoreRecyclerOptions.Builder<Listing>()
                 .setQuery(query, Listing.class).build();
@@ -63,7 +59,6 @@ public class YourListingsActivity extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(mAdapter);
-
     }
 
     @Override
