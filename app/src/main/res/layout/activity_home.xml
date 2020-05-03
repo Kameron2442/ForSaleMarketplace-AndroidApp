@@ -30,6 +30,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:text="@string/search"
+                android:textSize="15sp"
                 android:onClick="searchListings"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +46,7 @@
                 android:layout_marginEnd="32dp"
                 android:onClick="yourListings"
                 android:text="@string/your_listings"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/home_search" />
@@ -59,6 +61,7 @@
                 android:layout_marginEnd="32dp"
                 android:onClick="createPost"
                 android:text="@string/create_post"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -70,12 +73,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:onClick="signOut"
                 android:text="@string/logout"
-                android:textSize="16dp"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/home_post" />

@@ -132,7 +132,7 @@
                 android:layout_marginEnd="24dp"
                 android:onClick="postItem"
                 android:text="@string/post"
-                android:textSize="16dp"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"

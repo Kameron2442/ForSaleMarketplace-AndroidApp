@@ -20,4 +20,10 @@
     <string name="price_dollar">$%1$s</string>
     <string name="delete_post">Delete Post</string>
     <string name="update_post">Update Post</string>
+    <string name="exact_title">Exact title</string>
+    <string name="min_price">Min price</string>
+    <string name="max_price">Max price</string>
+    <string name="no_results">No results</string>
+
+
 </resources>
