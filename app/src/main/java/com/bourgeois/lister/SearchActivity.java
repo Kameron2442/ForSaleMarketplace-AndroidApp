@@ -1,5 +1,6 @@
 package com.bourgeois.lister;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,12 +12,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -26,6 +32,7 @@ public class SearchActivity extends AppCompatActivity {
     private EditText title_ET;
     private EditText min_ET;
     private EditText max_ET;
+    private TextView noresults;
 
     private FirebaseAuth mAuth;
     private final FirebaseFirestore mDb = FirebaseFirestore.getInstance();
@@ -49,6 +56,7 @@ public class SearchActivity extends AppCompatActivity {
         title_ET = findViewById(R.id.search_title_i);
         min_ET = findViewById(R.id.search_min_i);
         max_ET = findViewById(R.id.search_max_i);
+        noresults = findViewById(R.id.no_results);
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
@@ -76,7 +84,6 @@ public class SearchActivity extends AppCompatActivity {
             search_max = Integer.parseInt(max_ET.getText().toString());
         }
 
-        Log.i("myapp", String.valueOf(search_title.length()));
         if(search_title.length() == 0){
             Query query = mDb.collection("listings")
                     .whereGreaterThan("price", search_min)
@@ -97,6 +104,21 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void buildResults(Query myquery){
+
+        myquery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                if(task.getResult().size() == 0){
+                    noresults.setVisibility(View.VISIBLE);
+                }else{
+                    noresults.setVisibility(View.GONE);
+                }
+
+            }
+        });
+
+
         FirestoreRecyclerOptions<Listing> options = new FirestoreRecyclerOptions.Builder<Listing>().setQuery(myquery, Listing.class).build();
 
         mAdapter = new ListingRecyclerAdapter(options, new ListingRecyclerAdapter.OnItemClickListener() {
