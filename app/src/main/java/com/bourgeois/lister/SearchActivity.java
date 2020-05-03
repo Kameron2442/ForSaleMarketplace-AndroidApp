@@ -84,15 +84,15 @@ public class SearchActivity extends AppCompatActivity {
         //different search queries are used depending on if the user inputs a title
         if(search_title.length() == 0){
             Query query = mDb.collection("listings")
-                    .whereGreaterThan("price", search_min)
-                    .whereLessThan("price", search_max)
+                    .whereGreaterThanOrEqualTo("price", search_min)
+                    .whereLessThanOrEqualTo("price", search_max)
                     .orderBy("price", Query.Direction.DESCENDING);
             buildResults(query);
         }else{
             Query query = mDb.collection("listings")
                     .whereEqualTo("title", search_title)
-                    .whereGreaterThan("price", search_min)
-                    .whereLessThan("price", search_max)
+                    .whereGreaterThanOrEqualTo("price", search_min)
+                    .whereLessThanOrEqualTo("price", search_max)
                     .orderBy("price", Query.Direction.DESCENDING);
             buildResults(query);
         }
