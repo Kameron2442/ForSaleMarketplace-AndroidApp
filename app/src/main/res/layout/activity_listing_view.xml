@@ -115,7 +115,8 @@
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:theme="@style/ButtonColor"/>
 
                 <Button
                     android:id="@+id/delete_button"
@@ -126,7 +127,8 @@
                     android:onClick="deletePost"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/update_button" />
+                    app:layout_constraintTop_toBottomOf="@+id/update_button"
+                    app:theme="@style/ButtonColor"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
