@@ -54,26 +54,7 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
 
         Query query = mDb.collection("listings").orderBy("posted", Query.Direction.DESCENDING);
-        FirestoreRecyclerOptions<Listing> options = new FirestoreRecyclerOptions.Builder<Listing>()
-                .setQuery(query, Listing.class).build();
-
-        mAdapter = new ListingRecyclerAdapter(options, new ListingRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Listing item = mAdapter.getSnapshots().getSnapshot(position).toObject(Listing.class);
-                String id = mAdapter.getSnapshots().getSnapshot(position).getId();
-                Intent listIntent = new Intent(SearchActivity.this, ListingViewActivity.class);
-                listIntent.putExtra(ListingViewActivity.DOC_title, item.getTitle());
-                listIntent.putExtra(ListingViewActivity.DOC_price, String.valueOf(item.getPrice()));
-                listIntent.putExtra(ListingViewActivity.DOC_desc, item.getDesc());
-                listIntent.putExtra(ListingViewActivity.DOC_posted, String.format(getResources().getString(R.string.created_on), format.format(item.getPosted())));
-                listIntent.putExtra(ListingViewActivity.DOC_uid, String.format(getResources().getString(R.string.poster_uid), item.getUID()));
-                listIntent.putExtra(ListingViewActivity.DOC_email, item.getEmail());
-                listIntent.putExtra(ListingViewActivity.DOC_id, id);
-                startActivity(listIntent);
-            }
-        });
-        recyclerView.setAdapter(mAdapter);
+        buildResults(query);
     }
 
     @Override
@@ -83,12 +64,9 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void searchDB(View view) {
-        String search_title = "";
+        String search_title = title_ET.getText().toString();
         Integer search_min = 0;
         Integer search_max = 1000000;
-
-        Log.i("myapp", String.valueOf(min_ET.getText().toString().length()));
-
 
         if(min_ET.getText().toString().length() != 0){
             search_min = Integer.parseInt(min_ET.getText().toString());
@@ -98,9 +76,28 @@ public class SearchActivity extends AppCompatActivity {
             search_max = Integer.parseInt(max_ET.getText().toString());
         }
 
+        Log.i("myapp", String.valueOf(search_title.length()));
+        if(search_title.length() == 0){
+            Query query = mDb.collection("listings")
+                    .whereGreaterThan("price", search_min)
+                    .whereLessThan("price", search_max)
+                    .orderBy("price", Query.Direction.DESCENDING);
+            buildResults(query);
+        }else{
+            Query query = mDb.collection("listings")
+                    .whereEqualTo("title", search_title)
+                    .whereGreaterThan("price", search_min)
+                    .whereLessThan("price", search_max)
+                    .orderBy("price", Query.Direction.DESCENDING);
+            buildResults(query);
+        }
 
-        Query query = mDb.collection("listings").whereGreaterThan("price", search_min).orderBy("price", Query.Direction.DESCENDING);
-        FirestoreRecyclerOptions<Listing> options = new FirestoreRecyclerOptions.Builder<Listing>().setQuery(query, Listing.class).build();
+
+
+    }
+
+    public void buildResults(Query myquery){
+        FirestoreRecyclerOptions<Listing> options = new FirestoreRecyclerOptions.Builder<Listing>().setQuery(myquery, Listing.class).build();
 
         mAdapter = new ListingRecyclerAdapter(options, new ListingRecyclerAdapter.OnItemClickListener() {
             @Override
@@ -120,6 +117,5 @@ public class SearchActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(mAdapter);
         mAdapter.startListening();
-
     }
 }
